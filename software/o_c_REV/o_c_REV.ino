@@ -47,7 +47,7 @@ OC::UiMode ui_mode = OC::UI_MODE_MENU;
 const bool DUMMY = false;
 
 /*  ------------------------ UI timer ISR ---------------------------   */
-
+ 
 IntervalTimer UI_timer;
 
 void FASTRUN UI_timer_ISR() {

@@ -30,25 +30,25 @@ public:
     	max_steps = 15;
         output = 2;
         fire = 1;
-        prob = 50;
+        prob = 0;
     }
 
     void Controller() {
-        if (Clock(0)) {
-            if (step >= max_steps) step = -1;
+        if (Clock(0) || Clock(1)) {
+            if (step >= max_steps || Clock(1)) step = -1;
             step++;
 
             int fire;
-            if (step == 3 || step == 7 || step == 11 || step == 15) {
+            if (step == 2 || step == 6 || step == 10 || step == 14) {
                 output = 0;
                 fire = 1;
             } else {
                 output = 1;
-                fire = (random(1, 100) <= prob) ? 0 : 1;
+                fire = (random(1, 100) <= prob) ? 1 : 0;
             }
 
             if (fire == 1) {
-                ClockOut(output - 1);
+                ClockOut(output);
             } else {
                 output = 2;
             }
@@ -96,9 +96,9 @@ private:
     int prob;
 
 	void DrawInterface() {
-        gfxPrint(1, 15, hemisphere ? "d-prob=" : "b-prob=");
-        gfxPrint(33 + pad(100, step), 15, prob);
-
+       gfxPrint(1, 15, "p=");
+        gfxPrint(15 + pad(100, prob), 15, prob);
+        gfxPrint(33, 15, hemisphere ? "% D" : "% B");
         gfxCursor(15, 23, 18);
         
         gfxPrint(12, 45, hemisphere ? "C" : "A");
